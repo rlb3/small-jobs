@@ -19,6 +19,9 @@
 (defn find-user-by-email [email]
   (db/fetch-one :users :where {:email email}))
 
+(defn find-user-by-id [id-str]
+  (filter (fn [user] (= (id user) id-str)) (db/fetch :users)))
+
 (defn update-user-friends [user friends]
   (db/update! :users user (merge user {:friends (conj (:friends user) friends)})))
 
