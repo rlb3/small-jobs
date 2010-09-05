@@ -10,5 +10,8 @@
 (defn find-user-by-email [email]
   (db/find-user-by-email email))
 
+(defn find-user-by-id [id]
+  (db/find-user-by-id id))
+
 (defn update-user-friends [user friends]
   (db/update-user-friends user friends))
