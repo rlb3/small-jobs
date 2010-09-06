@@ -35,6 +35,26 @@
       (is (= (:username r) "rlb3"))
       (is (= (:username j) "jt")))))
 
+(deftest test-update-user-friends
+  (with-db
+    (let [r (find-user-by-username "rlb3")
+          j (find-user-by-username "jt")]
+      (is (= (count (:friends r)) 0))
+      (update-user-friends r (db/id j))
+      (let [new-r (find-user-by-username "rlb3")]
+        (is (= (count (:friends new-r)) 1))
+        (is (= ((:friends new-r) 0) (db/id j)))))))
+
+(deftest test-get-friend
+  (with-db
+    (let [r (find-user-by-username "rlb3")
+          j (find-user-by-username "jt")]
+      (update-user-friends r (db/id j))
+      (let [new-r (find-user-by-username "rlb3")
+            new-j (get-friends new-r)]
+        (print (:email new-j))
+        (is (= (:username j)
+               (:username new-j)))))))
 
 (run-tests 'small-jobs.test.users)
 
