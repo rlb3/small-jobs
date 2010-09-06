@@ -29,4 +29,4 @@
 (defn get-friends
   "Find all a users friends"
   [user]
-  (map find-user-by-id (:friends user)))
+  (apply find-user-by-id (:friends user)))

@@ -51,10 +51,8 @@
           j (find-user-by-username "jt")]
       (update-user-friends r (db/id j))
       (let [new-r (find-user-by-username "rlb3")
-            new-j (get-friends new-r)]
-        (print (:email new-j))
-        (is (= (:username j)
-               (:username new-j)))))))
+            jt (first (get-friends new-r))]
+        (is (= j jt))))))
 
 (run-tests 'small-jobs.test.users)
 
