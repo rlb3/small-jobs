@@ -9,9 +9,9 @@
 (defn id [obj]
   (.toString (:_id obj)))
 
+;; User functions
 (defn insert-user [user]
-  (db/insert! :users
-              user))
+  (db/insert! :users user))
 
 (defn find-user-by-username [username]
   (db/fetch-one :users :where {:username username}))
@@ -33,3 +33,5 @@
 
 (defn update-user-temp-groups [user temp-groups]
   (db/update! :users user (merge user {:temp-groups (conj (:temp-groups user) temp-groups)})))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
