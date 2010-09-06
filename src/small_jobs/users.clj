@@ -4,15 +4,19 @@
 (defn build-user-object [user]
   (fn [sel & args]
     (condp = sel
-        :username (:username user)
+        :username   (:username user)
         :auth-check (= (:password user)
                        (first args))
-        :email    (:email user)
-        :skills   (:skills user)
-        :friends  (:friends user)
-        :groups   (:groups user)
-        :id       (db/id user)
-        :raw      user
+        :equal?     (let
+                        [other (first args)]
+                      (= user
+                         (other :raw)))
+        :email      (:email user)
+        :skills     (:skills user)
+        :friends    (:friends user)
+        :groups     (:groups user)
+        :id         (db/id user)
+        :raw        user
         :temp-groups (:temp-groups user))))
 
 (defn create-user
