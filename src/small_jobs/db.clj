@@ -35,7 +35,9 @@
 (defn update-user-friends
   "Add user ids to their friends list"
   [user friends]
-  (db/update! :users (user :raw) (merge (user :raw) {:friends (conj (:friends (user :raw)) friends)})))
+  (db/update! :users
+              (user :raw)
+              (merge (user :raw) {:friends (conj (:friends (user :raw)) friends)})))
 
 (defn update-user-skills [user skills]
   (db/update! :users user (merge user {:skills (conj (:skills user) skills)})))
