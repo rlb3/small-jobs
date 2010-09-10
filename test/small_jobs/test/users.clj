@@ -54,5 +54,5 @@
             jt (first (get-friends new-r))]
         (is (= j jt))))))
 
-(run-tests 'small-jobs.test.users)
+;; (run-tests 'small-jobs.test.users)
 

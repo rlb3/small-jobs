@@ -32,18 +32,21 @@
   [id-str]
   (filter (fn [user] (= (id user) id-str)) (db/fetch :users)))
 
+(defmacro update-user-collection [user set]
+  `(db/update! :users ~user (merge ~user {:friends (conj ((keyword 'set) ~user) ~set)})))
+
 (defn update-user-friends
   "Add user ids to their friends list"
   [user friends]
-  (db/update! :users user (merge user {:friends (conj (:friends user) friends)})))
+  (update-user-collection user friends))
 
 (defn update-user-skills [user skills]
-  (db/update! :users user (merge user {:skills (conj (:skills user) skills)})))
+  (update-user-collection user skills))
 
 (defn update-user-groups [user groups]
-  (db/update! :users user (merge user {:groups (conj (:groups user) groups)})))
+  (update-user-collection user groups))
 
 (defn update-user-temp-groups [user temp-groups]
-  (db/update! :users user (merge user {:temp-groups (conj (:temp-groups user) temp-groups)})))
+  (update-user-collection user temp-groups))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
