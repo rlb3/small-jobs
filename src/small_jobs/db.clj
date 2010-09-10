@@ -33,7 +33,7 @@
   (filter (fn [user] (= (id user) id-str)) (db/fetch :users)))
 
 (defmacro update-user-collection [user set]
-  `(db/update! :users ~user (merge ~user {:friends (conj ((keyword 'set) ~user) ~set)})))
+  `(db/update! :users ~user (merge ~user {(keyword '~set) (conj ((keyword '~set) ~user) ~set)})))
 
 (defn update-user-friends
   "Add user ids to their friends list"
